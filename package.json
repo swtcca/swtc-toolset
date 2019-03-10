@@ -1,19 +1,23 @@
 {
-  "name": "lospring-toolset",
-  "version": "1.0.1",
-  "description": "",
-  "main": "index.js",
+  "name": "swtc-toolset",
+  "version": "1.0.3",
+  "description": "some shorts using swtc-lib bluebird",
+  "main": "src/swtclib.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "personal",
+    "swtc",
     "toolset"
   ],
   "author": "Lospring Liu <lospringliu@gmail.com>",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.18.0",
+    "bluebird": "^3.5.3",
     "moment": "^2.24.0"
+  },
+  "devDependencies": {
+    "swtc-lib": "^1.6.4"
   }
 }
