@@ -30,13 +30,13 @@ describe('toolset functions', function () {
     describe('makeAmount function', function () {
 		let toolset = new ToolSet()
         it('makeAmount() should generate same makeAmount("swt")', function () {
-            expect(toolset.makeAmount()).to.deep.equal(toolset.makeAmount('swt'))
+            expect(toolset.makeAmount()).to.deep.equal(toolset.makeAmount(1, 'swt'))
         })
-        it('makeAmount("swt",100) should generate 100 SWT amount', function () {
-            expect(toolset.makeAmount('swt', 100).value).to.equal(100)
+        it('makeAmount(100,"swt") should generate 100 SWT amount', function () {
+            expect(toolset.makeAmount(100, 'swt').value).to.equal(100)
         })
-        it('makeAmount("cny",100) should generate same makeAmount("cnt",100)', function () {
-            expect(toolset.makeAmount('cny',100)).to.deep.equal(toolset.makeAmount('cnt',100))
+        it('makeAmount("100","cnt") should generate same makeAmount(100, "cny")', function () {
+            expect(toolset.makeAmount("100", 'cnt')).to.deep.equal(toolset.makeAmount(100, 'cny'))
         })
     })
 

@@ -1,14 +1,14 @@
 const BlueBird = require('bluebird')
 
 class SwtcToolSet {
-	constructor(testnet=false) {
+	constructor(params={}) {
 		this.SWT = {currency: 'SWT', issuer: ''}
 		this.ISSUER = 'jGa9J9TkqtBcUoHe2zqhVFFbgUVED6o9or'
-		this.CURRENCIES = { 'CNT': 'CNY' }
-		if (testnet) {
-			this.REMOTE = {server: 'ws://ts5.jingtum.com:5020', local_sign: true }
+		this.CURRENCIES = { 'CNT': 'CNY', 'JCC': 'JJCC', 'SLASH': 'JSLASH', 'MOAC': 'JMOAC', 'CALL': 'JCALL', 'EKT': 'JEKT', 'ETH': 'JETH' }
+		if (params.testnet) {
+			this.REMOTE = {server: params.default_remote || 'ws://ts5.jingtum.com:5020', local_sign: true }
 		} else {
-			this.REMOTE = {server: 'wss://c05.jingtum.com:5020', local_sign: true }
+			this.REMOTE = {server: params.default_remote || 'ws://swtclib.daszichan.com:5020', local_sign: true }
 		}
 	}
 
@@ -38,10 +38,10 @@ class SwtcToolSet {
 			{currency: currency, issuer: ''} :
 			{currency: currency, issuer: issuer}
 	}
-	makeAmount (currency='SWT', value=1) {
+	makeAmount (value=1, currency='SWT') {
 		return (typeof currency === 'object') ?
-			Object.assign({}, currency, {value: value}) :
-			Object.assign({}, this.makeCurrency(currency), {value: value})
+			Object.assign({}, currency, {value: Number(value)}) :
+			Object.assign({}, this.makeCurrency(currency), {value: Number(value)})
 	}
 }
 
