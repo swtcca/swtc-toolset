@@ -1,13 +1,13 @@
 const BlueBird = require('bluebird')
+const CURRENCIES = { 'CNT': 'CNY', 'JCC': 'JJCC', 'SLASH': 'JSLASH', 'MOAC': 'JMOAC', 'CALL': 'JCALL', 'EKT': 'JEKT', 'ETH': 'JETH' }
 
 class SwtcToolSet {
 	constructor(params={}) {
-		this.SWT = {currency: 'SWT', issuer: ''}
-		this.ISSUER = 'jGa9J9TkqtBcUoHe2zqhVFFbgUVED6o9or'
-		this.CURRENCIES = { 'CNT': 'CNY', 'JCC': 'JJCC', 'SLASH': 'JSLASH', 'MOAC': 'JMOAC', 'CALL': 'JCALL', 'EKT': 'JEKT', 'ETH': 'JETH' }
 		if (params.testnet) {
 			this.REMOTE = {server: params.default_remote || 'ws://ts5.jingtum.com:5020', local_sign: true }
+			this.ISSUER = 'jGa9J9TkqtBcUoHe2zqhVFFbgUVED6o9or'
 		} else {
+			this.ISSUER = 'jGa9J9TkqtBcUoHe2zqhVFFbgUVED6o9or'
 			this.REMOTE = {server: params.default_remote || 'ws://swtclib.daszichan.com:5020', local_sign: true }
 		}
 	}
@@ -33,15 +33,15 @@ class SwtcToolSet {
 	
 	makeCurrency (currency='SWT', issuer=this.ISSUER) {
 		currency = currency.toUpperCase()
-		currency = this.CURRENCIES.hasOwnProperty(currency) ? this.CURRENCIES[currency] : currency
+		currency = CURRENCIES.hasOwnProperty(currency) ? CURRENCIES[currency] : currency
 		return (currency === 'SWT') ?
 			{currency: currency, issuer: ''} :
 			{currency: currency, issuer: issuer}
 	}
-	makeAmount (value=1, currency='SWT') {
+	makeAmount (value=1, currency='SWT', issuer=this.ISSUER) {
 		return (typeof currency === 'object') ?
 			Object.assign({}, currency, {value: Number(value)}) :
-			Object.assign({}, this.makeCurrency(currency), {value: Number(value)})
+			Object.assign({}, this.makeCurrency(currency, issuer), {value: Number(value)})
 	}
 }
 
