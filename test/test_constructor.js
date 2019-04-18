@@ -11,17 +11,24 @@ describe('toolset constructor', function () {
     })
 
     describe('instantiation', function () {
-        it('test net differ from product net', function () {
-			let toolset = new ToolSet()
-			let toolset_testnet = new ToolSet({testnet: true})
-            expect(toolset).to.not.deep.equal(toolset_testnet)
+        it('instantiate a toolset with server', function () {
+			let toolset = new ToolSet({server: 'wss://test.jingtum.com:5020'})
+            expect(toolset.REMOTE.server).to.equal('wss://test.jingtum.com:5020')
         })
     })
 
     describe('instantiation', function () {
-        it('default_remote is honored', function () {
-			let toolset = new ToolSet({default_remote: 'wss://c04.jingtum.com:5020'})
-            expect(toolset.REMOTE.server).to.equal('wss://c04.jingtum.com:5020')
+        it('instantiate a toolset with issuer', function () {
+			let toolset = new ToolSet({issuer: 'jabcdefghijklmnopqrstuvwxyz'})
+            expect(toolset.ISSUER).to.equal('jabcdefghijklmnopqrstuvwxyz')
+        })
+    })
+
+    describe('instantiation', function () {
+        it('test net differ from product net', function () {
+			let toolset = new ToolSet()
+			let toolset_testnet = new ToolSet({testnet: true})
+            expect(toolset).to.not.deep.equal(toolset_testnet)
         })
     })
 })

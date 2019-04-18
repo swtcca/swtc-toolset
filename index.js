@@ -1,14 +1,15 @@
+// some short cuts for modern javascript development and effeciency
 const BlueBird = require('bluebird')
 const CURRENCIES = { 'CNT': 'CNY', 'JCC': 'JJCC', 'SLASH': 'JSLASH', 'MOAC': 'JMOAC', 'CALL': 'JCALL', 'EKT': 'JEKT', 'ETH': 'JETH' }
 
 class SwtcToolSet {
 	constructor(params={}) {
 		if (params.testnet) {
-			this.REMOTE = {server: params.default_remote || 'ws://ts5.jingtum.com:5020', local_sign: true }
-			this.ISSUER = 'jGa9J9TkqtBcUoHe2zqhVFFbgUVED6o9or'
+			this.ISSUER = params.issuer || 'jVnqw7H46sjpgNFzYvYWS4TAp13NKQA1D'
+			this.REMOTE = {server: params.server || 'ws://ts5.jingtum.com:5020', local_sign: true }
 		} else {
-			this.ISSUER = 'jGa9J9TkqtBcUoHe2zqhVFFbgUVED6o9or'
-			this.REMOTE = {server: params.default_remote || 'ws://swtclib.daszichan.com:5020', local_sign: true }
+			this.ISSUER = params.issuer || 'jGa9J9TkqtBcUoHe2zqhVFFbgUVED6o9or'
+			this.REMOTE = {server: params.server || 'ws://swtclib.daszichan.com:5020', local_sign: true }
 		}
 	}
 
@@ -31,6 +32,20 @@ class SwtcToolSet {
 	requestAccountOffers (remote, wallet) { return remote.requestAccountOffers({account: wallet.address || wallet}) }
 	requestAccountRelations (remote, wallet) { return remote.requestAccountRelations({account: wallet.address || wallet}) }
 	
+	initialize () {
+		let JLIB
+		try {
+			JLIB = require('swtc-lib')
+		} catch (error) {
+			try {
+				JLIB = require('jingtum-lib')
+			} catch (error) {
+				throw new Error('need either swtc-lib or jingtum-lib to work')
+			}
+		}
+		this.promisifyAll(JLIB)
+		return JLIB
+	}
 	makeCurrency (currency='SWT', issuer=this.ISSUER) {
 		currency = currency.toUpperCase()
 		currency = CURRENCIES.hasOwnProperty(currency) ? CURRENCIES[currency] : currency
