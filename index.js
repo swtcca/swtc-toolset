@@ -5,7 +5,7 @@ const CURRENCIES = { 'CNT': 'CNY', 'JCC': 'JJCC', 'SLASH': 'JSLASH', 'MOAC': 'JM
 class SwtcToolSet {
 	constructor(params={}) {
 		if (params.testnet) {
-			this.ISSUER = params.issuer || 'jVnqw7H46sjpgNFzYvYWS4TAp13NKQA1D'
+			this.ISSUER = params.issuer || 'jBciDE8Q3uJjf111VeiUNM775AMKHEbBLS'
 			this.REMOTE = {server: params.server || 'ws://ts5.jingtum.com:5020', local_sign: true }
 		} else {
 			this.ISSUER = params.issuer || 'jGa9J9TkqtBcUoHe2zqhVFFbgUVED6o9or'
